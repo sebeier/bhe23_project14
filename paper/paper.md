@@ -338,10 +338,10 @@ We encountered an additional challenge with MIAPPE-compliant ISA, particularly i
 
 While a general consensus on resolving these issues was not reached, the decision was made to deepen the discussions during the upcoming BioHackathon Germany in December. The aim is to collectively address and finalize this ongoing work.
 
-## Omnypi Orchestration in Cloud Environments
+## Omnipy Orchestration in Cloud Environments
 
 > [name=Sebastian Beier]
-> Sveinung & Pavel please insert the section on the work done for Omnypi here
+> Sveinung & Pavel please insert the section on the work done for Omnipy here
 
 # Discussion
 
