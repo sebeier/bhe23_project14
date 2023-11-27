@@ -203,8 +203,8 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 
 | Property | Required? | Description |
 | -------- | -------- | -------- |
-| @type    | MUST    | Dataset    |
-| @id | MUST | Should be “./”, the investigation object represents the root data entity. |
+| \@type    | MUST    | Dataset    |
+| \@id | MUST | Should be “./”, the investigation object represents the root data entity. |
 | [additionalType]() | MUST | ‘Investigation’ or ontology term to identify it as an Investigation |
 | headline | MUST | Text - A title of the investigation (e.g. a paper title). |
 | creator | MUST | Person - The creator(s)/authors(s)/owner(s)/PI(s) of the investigation. |
@@ -222,8 +222,8 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 
 | Property | Required? | Description |
 | -------- | -------- | -------- |
-| @type    | MUST    | Dataset    |
-| @id | MUST | Should be a subdirectory corresponding to this study. |
+| \@type    | MUST    | Dataset    |
+| \@id | MUST | Should be a subdirectory corresponding to this study. |
 | [additionalType]() | MUST | ‘Study’ or ontology term to identify it as a Study |
 | creator | MUST | Person - The performer of the study. |
 | identifier | MUST | Text or URL - Identifying descriptor of the study. |
@@ -241,8 +241,8 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 
 | Property | Required? | Description |
 | -------- | -------- | -------- |
-| @type    | MUST    | Dataset    |
-| @id | MUST |Should be a subdirectory corresponding to this assay. |
+| \@type    | MUST    | Dataset    |
+| \@id | MUST |Should be a subdirectory corresponding to this assay. |
 | *processSequence* | MUST | LabProcess - The experimental processes performed in this assay. |
 | [additionalType]() | MUST | ‘Assay’ or ontology term to identify it as an Assay |
 | creator | MUST | Person - The performer of the experiments. |
