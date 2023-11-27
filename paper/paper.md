@@ -238,6 +238,7 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 | comment | COULD | Comment |
 
 ***Assay***
+
 | Property | Required? | Description |
 | -------- | -------- | -------- |
 | @type    | MUST    | Dataset    |
@@ -257,10 +258,11 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 | comment | COULD | Comment |
 
 ***LabProcess***
+
 | Property | Required? | Description |
 | -------- | -------- | -------- |
-| @type    | MUST    | LabProcess    |
-| @id | MUST | Could identify the process using the isa metadata filename and the protocol reference or process name. |
+| \@type    | MUST    | LabProcess    |
+| \@id | MUST | Could identify the process using the isa metadata filename and the protocol reference or process name. |
 | name | MUST | Text |
 | agent | MUST | The performer - Person |
 | object | MUST | The input - Sample, File |
@@ -270,10 +272,11 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 | endTime | SHOULD | DateTime |
 
 ***LabProtocol***
+
 | Property | Required? | Description |
 | -------- | -------- | -------- |
-| @type    | MUST    | LabProtocol   |
-| @id | MUST | Could be the url pointing to the protocol resource. |
+| \@type    | MUST    | LabProtocol   |
+| \@id | MUST | Could be the url pointing to the protocol resource. |
 | url | MUST | Pointer to protocol resources external to the ISA-Tab that can be accessed by their Uniform Resource Identifier (URI). |
 | headline | SHOULD | Main title of the LabProtocol. - Text |
 | purpose | SHOULD | The protocol type as an ontology term - URL or DefinedType |
@@ -286,29 +289,32 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 | sameAs | COULD | URL of a reference Web page that unambiguously indicates the item's identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or official website. |
 
 ***Sample***
+
 | Property | Required? | Description |
 | -------- | -------- | -------- |
-| @type    | MUST    | Sample   |
-| @id | MUST | Could be the unique sample name. |
+| \@type    | MUST    | Sample   |
+| \@id | MUST | Could be the unique sample name. |
 | name | MUST | A name identifying the sample. |
 | additionalProperty | SHOULD | characteristics or factors |
 | *derivesFrom* | COULD | A source from which the sample is derived through processes. |
 
 ***Data***
+
 | Property | Required? | Description |
 | -------- | -------- | -------- |
-| @type    | MUST    | File   |
-| @id | MUST | SHould be the path pointing to the file. |
+| \@type    | MUST    | File   |
+| \@id | MUST | Should be the path pointing to the file. |
 | name | MUST | Text or URI - the name of the file. |
 | comment | COULD | Comment |
 | encodingFormat | COULD | Media format as a MIME type |
 | disambiguatingDescription | COULD | Text - The type of the data file ("Raw Data File", "Derived Data File" or "Image File") |
 
 ***PropertyValue***
+
 | Property | Required? | Description |
 | -------- | -------- | -------- |
-| @type    | MUST    | PropertyValue   |
-| @id | MUST | |
+| \@type    | MUST    | PropertyValue   |
+| \@id | MUST | |
 | additionalType | COULD | Text - Can be used to describe if the value is a factor, characteristic or parameter. |
 | propertyID | SHOULD | Key ontology reference - URL |
 | name | MUST | Key name - Text |
