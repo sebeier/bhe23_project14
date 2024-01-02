@@ -54,7 +54,7 @@ authors:
     orcid: 0000-0003-0471-9517
     affiliation: 9
 affiliations:
-  - name: Forschungszentrum Juelich, CEPLAS, BioSC, Institute of Bio- and Geosciences, IBG4 Bioniformatics, 52428 Juelich, Germany
+  - name: Institute of Bio- and Geosciences (IBG-4 Bioinformatics), Bioeconomy Science Center (BioSC), CEPLAS, Forschungszentrum Jülich GmbH, 52425 Jülich, Germany
     index: 1
   - name: RPTU Kaiserslautern-Landau, Germany
     index: 2
@@ -64,7 +64,7 @@ affiliations:
     index: 4
   - name: Cluster of Excellence on Plant Sciences (CEPLAS) / Heinrich-Heine-University Düsseldorf, Germany
     index: 5
-  - name: Whythawk, Oxford, United Kingdom
+  - name: Whythawk, Marseille, France
     index: 6
   - name: Leibniz Institute for Plant Genetics and Crop Plant Research (IPK) Gatersleben, Germany
     index: 7
@@ -93,9 +93,9 @@ As part of the BioHackathon Europe 2023, we report here on the plan that project
 
 ## Description of Project 14
 
-A prevailing paradigm in Research Data Management (RDM) is to publish research datasets in designated archives upon conclusion of a research process. However, it is beneficial to abandon the notion of **final** or **static** data artifacts and instead adopt a continuous approach towards working with research data, where data is constantly archived, versioned, and updated. This **immutable yet evolving** perspective allows for the application of existing technologies and processes from software engineering, such as continuous integration, release practices, and version management backed by decades of experience, and adaptable to RDM.
+A prevailing paradigm in Research Data Management (RDM) is to publish research datasets in designated archives upon conclusion of a research process. However, it is beneficial to abandon the notion of **final** or **static** data artifacts and instead adopt a continuous approach towards working with research data, where data is constantly shared, versioned, and updated. This **immutable yet evolving** perspective allows for the application of existing technologies and processes from software engineering, such as continuous integration, release practices, and version management backed by decades of experience, and adaptable to RDM.
 
-To facilitate this, we propose the Annotated Research Context (ARC), a data and metadata layout convention based on the well-established ISA model for metadata annotation [@citesAsAuthority:Rocca_Serra2010] and implemented as Git repositories. ARCs are amenable towards frequent, lightweight data management operations, such as (meta)data validation and transformation. The Omnipy Python library is designed to help develop stepwise validated (meta)data transformations as scalable data flows that can be incrementally designed, updated, and rerun as requirements or data evolve.
+To facilitate this, we propose the Annotated Research Context (ARC), a data and metadata layout convention based on the well-established ISA model for metadata annotation [@citesAsAuthority:Rocca_Serra2010] and implemented using Git repositories. ARCs are amenable towards frequent, lightweight data management operations, such as (meta)data validation and transformation. The Omnipy Python library is designed to help develop stepwise validated (meta)data transformations as scalable data flows that can be incrementally designed, updated, and rerun as requirements or data evolve.
 
 To demonstrate the concept of **continuous RDM** we will use Omnipy to define and orchestrate Git-backed CI/CD (Continuous Integration/Continuous Delivery) data flows to convert ISA metadata present in ARCs into validated RO-Crate [@citesAsAuthority:10.3233/ds-210053] representations adhering to the Bioschemas [@citesAsAuthority:gray2017] convention. A RO-Crate package combines the actual research data with its metadata description. Downstream, this allows semantic interpretation by Galaxy for e.g. workflow execution as well as machine-readable data access and data harvesting for search engines such as FAIDARE.
 
@@ -114,19 +114,19 @@ Actual results produced during discussions, modelling and implementations during
 
 In preparation for the BioHackathon, the team from Kaiserslautern had already implemented a prototype of a CI/CD pipeline for ARCs in a GitLab environment [ARC_Prototype](https://git.nfdi4plants.org/muehlhaus/ArcPrototype) [@citesAsAuthority:Weil2023]. This allowed us to focus on the converting ISA to RO-Crate using Bioschemas and Schema.org. What we wanted to achieve in this conversion was that the process should be reversible, i.e. without loss of information on either side of the conversion. To leverage the systematic and scalable approach to data transformation provided by Omnipy, including data flow orchestration through a professional ETL framework ([Prefect](https://prefect.io)), we wanted to prototype an end-to-end integration which would allow GitLab pipelines to trigger Omnipy data flows to run on a cloud environment using Prefect.
 
-All these changes from the original work plan allowed to define additional work to create a crosswalk from ISA to GEO using whyqd. During the BioHackathon it also became clear that the mappings between ISA and MIAPPE need to be refined to fully utilise the conversion from MIAPPE-compliant ISA to RO-Crates.
+All these changes from the original work plan allowed to define additional work to create a crosswalk from ISA to [GEO](https://www.ncbi.nlm.nih.gov/geo/) using [whyqd](https://whyqd.com/). During the BioHackathon it also became clear that the mappings between ISA and MIAPPE need to be refined to fully utilise the conversion from MIAPPE-compliant ISA to RO-Crates.
 
 **Updated Work Plan**
 1. Generate Bioschemas representation of the ISA model
 2. Specify formal RO-Crate Profile for ISA
 3. Generate Crosswalk from ISA to GEO using whyqd
-4. Redo and refine MIAPPE to ISA mapping
+4. Redo and refine MIAPPE to ISA mapping to ensure its compatibility with the RO-Crate profiles for ISA
 5. Integration of CI/CD-triggered dataflows using Omnipy in cloud environments
 
 ## Bioschemas
 For a correct and lossless conversion from ISA to RO-Crate, adherence to Schema.org or Bioschemas annotations is crucial. While most of the ISA data model aligns with these annotations, an exception arises with the 'LabProtocol' instance. In Bioschemas, 'LabProtocol' is mainly interpreted as the execution process, evident in its relation to https://schema.org/CreativeWork (refer to https://bioschemas.org/profiles/LabProtocol/0.7-DRAFT). However, Bioschemas does not define the associated instruction or documentation for this execution, leaving a gap in its scope.
 
-In contrast, the ISA data model meticulously defines both the process and its corresponding instruction. This difference poses a challenge in the conversion from ISA to RO-Crate, as the absence of a well-defined instruction in the Bioschemas scope complicates or renders impossible alignment with the robust definitions present in the ISA data model. 
+In contrast, the ISA data model meticulously defines both the process and its corresponding instruction. This difference poses a challenge in the conversion from ISA to RO-Crate, as the absence of a well-defined instruction in the Bioschemas scope complicates or renders impossible the alignment with the robust definitions present in the ISA data model. 
 
 Following the realization of these challenges, immediate contact was made with the Bioschemas Steering Council, with several members, including Leyla Jael Castro, Ivan Mičetić, Alban Gaignard, Nick Juty, and Ginger Tsueng, actively participating either physically or virtually in the BioHackathon. Our observations were communicated, and discussions ensued regarding potential solutions. In collaboration, a decision was reached to establish a working group aimed at creating a new type and profile for 'LabProcess' while refining the type and profile for 'LabProtocol'.
 
@@ -205,8 +205,8 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 | -------- | -------- | -------- |
 | \@type    | MUST    | Dataset    |
 | \@id | MUST | Should be “./”, the investigation object represents the root data entity. |
-| [additionalType]() | MUST | ‘Investigation’ or ontology term to identify it as an Investigation |
-| headline | MUST | Text - A title of the investigation (e.g. a paper title). |
+| [additionalType](https://schema.org/additionalType) | MUST | ‘Investigation’ or ontology term to identify it as an Investigation |
+| name | MUST | Text - A title of the investigation (e.g. a paper title). |
 | creator | MUST | Person - The creator(s)/authors(s)/owner(s)/PI(s) of the investigation. |
 | identifier | MUST | Text or URL - Identifying descriptor of the investigation (e.g. repository name). |
 | description | SHOULD | Text - A description of the investigation (e.g. an abstract). |
@@ -224,10 +224,10 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 | -------- | -------- | -------- |
 | \@type    | MUST    | Dataset    |
 | \@id | MUST | Should be a subdirectory corresponding to this study. |
-| [additionalType]() | MUST | ‘Study’ or ontology term to identify it as a Study |
+| [additionalType](https://schema.org/additionalType) | MUST | ‘Study’ or ontology term to identify it as a Study |
 | creator | MUST | Person - The performer of the study. |
 | identifier | MUST | Text or URL - Identifying descriptor of the study. |
-| headline | MUST | Text - A title of the study. |
+| name | MUST | Text - A title of the study. |
 | hasPart | SHOULD | Dataset (**Assays**) and/or File - Assays contained in this study or actual data files resulting from the process sequence. |
 | *processSequence* | SHOULD | LabProcess - The experimental processes performed in this study. |
 | dateCreated | SHOULD | DateTime |
@@ -244,7 +244,7 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 | \@type    | MUST    | Dataset    |
 | \@id | MUST |Should be a subdirectory corresponding to this assay. |
 | *processSequence* | MUST | LabProcess - The experimental processes performed in this assay. |
-| [additionalType]() | MUST | ‘Assay’ or ontology term to identify it as an Assay |
+| [additionalType](https://schema.org/additionalType) | MUST | ‘Assay’ or ontology term to identify it as an Assay |
 | creator | MUST | Person - The performer of the experiments. |
 | identifier | MUST | Text or URL - Identifying descriptor of the assay. |
 | measurementMethod | MUST | describes the type measurement e.g Complexomics or transcriptomics as an ontology term - URL or DefinedType |
@@ -278,7 +278,7 @@ Taking inspiration from the [ISA Draft Profile](https://www.researchobject.org/r
 | \@type    | MUST    | LabProtocol   |
 | \@id | MUST | Could be the url pointing to the protocol resource. |
 | url | MUST | Pointer to protocol resources external to the ISA-Tab that can be accessed by their Uniform Resource Identifier (URI). |
-| headline | SHOULD | Main title of the LabProtocol. - Text |
+| name | SHOULD | Main title of the LabProtocol. - Text |
 | purpose | SHOULD | The protocol type as an ontology term - URL or DefinedType |
 | description | SHOULD | A short description of the protocol (e.g. an abstract) |
 | comment |COULD | Comment |
@@ -338,27 +338,31 @@ This is available as a Jupyter Notebook here: https://github.com/turukawa/coding
 
 During dedicated discussions, we delved into the harmonization between MIAPPE and ISA, uncovering two key insights:
 
-In MIAPPE-compliant ISA, the placement of the StudyDesignDescriptor within the Investigation raised significant questions. Proposals surfaced to relocate it to a distinct Study, referencing it in other Studies, particularly the experimental ones. This adjustment aimed to prevent the current form of the Investigation from becoming overly burdened with StudyDesignDescriptors in the presence of numerous experimental Studies. Additionally, this approach was seen as instrumental in fostering the downstream development and reusability of these Studies in other Investigations.
+In MIAPPE-compliant ISA, the placement of the StudyDesignDescriptor within the Investigation file in the ISA-tab model raised significant questions.  Proposals surfaced to relocate it to a distinct Study, referencing it in other Studies, particularly the experimental ones. This adjustment aimed to prevent the current form of the Investigation from becoming overly burdened with StudyDesignDescriptors in the presence of numerous experimental Studies. This problem seems less problematic in the ISA-JSON formalisation. Though this proposal would solve some problems, it would likely trigger other challenges and increase data model complexity. It will therefore be revisited in future discussions and biohackathons.
 
-We encountered an additional challenge with MIAPPE-compliant ISA, particularly involving comprehension issues in various implementations. A common occurrence is the unintended listing of results within assays, a departure from the intended structure in the ISA data model. According to the ISA conventions, results should solely be described in the form of metadata, with the actual data only being linked. In MIAPPE, however, certain aspects of this metadata are stored in a TraitDefinitionFile, which contradicts ISA conventions where such information should be included in the assay file, and the results should be housed in a separate data file. This discrepancy poses a noteworthy issue in maintaining the consistency and adherence to established conventions in MIAPPE-compliant ISA implementations.
+We encountered an additional challenge with MIAPPE-compliant ISA, particularly involving comprehension issues in various implementations. A common occurrence is the unintended listing of results within assays, a deviation from the intended structure in the ISA and MIAPPE data models. Indeed, MIAPPE formalizes the metadata but leaves a total liberty on the datafile format to the researchers. Likewise, in ISA results should solely be described in the form of metadata, with the actual data only being linked. However, in MIAPPE-compliant ISA certain aspects of this metadata are stored in a TraitDefinitionFile because of the lack of a suitable placeholder in ISA. Proposition to store those metadata in  the assay file have been discussed without reaching an agreement with the right balance between technical implementation of ISA and unambiguous, reusable scientific description of the dataset.
 
-While a general consensus on resolving these issues was not reached, the decision was made to deepen the discussions during the upcoming BioHackathon Germany in December. The aim is to collectively address and finalize this ongoing work.
+While a general consensus on resolving these issues was not reached, the decision was made to deepen the discussions especially during the upcoming BioHackathon Germany in December. The aim is to collectively address and finalize this ongoing work.
 
 ## Omnipy Orchestration in Cloud Environments
 
 [Omnipy](https://github.com/fairtracks/omnipy) is a Python library for type-driven data wrangling and scalable workflow orchestration that is still under development. It combines parsing and validation of data according to precise data models (powered by the popular [pydantic library](https://github.com/pydantic/pydantic)) with wrapping of data transformation functions as deployable tasks linked together through several types of data flows (as linear sequences, direct acyclical graphs (DAGs), or through free-form Python functions). These tasks and flows can be run using either of the two currently supported compute engines, the 'local' engine for local computation and the prefect engine, which makes use of the industry-developed [Prefect](https://prefect.io) data flow orchestration framework. This core functionality has been available for a while. Unfortunately, the actual deployment of Prefect on a cloud environment have proven to be problematic due to the need to A) getting access to a suitable computational environment and B) the complications in configuring and deploying the required services. 
 
-During the BioHackathon 2023, we explored integration with Omnipy in five different directions:
+During the BioHackathon Europe 2023, we explored integration with Omnipy in five different directions:
+
 * Configuring a GitLab installation, making use of the unit testing framework to trigger Omnipy flows
 * Updating Omnipy to store intermediate and final outputs on persistent cloud storage through the S3-compliant [Minio](https://min.io/) service
 * Configuring a Minio service, Prefect server and computational agents on a Kubernetes infrastructure
 * Understanding the details on how to set up a Prefect deployment and configuring Omnipy to take advantage of this
 * Investigate different ways of integrating the Omnipy and [whyqd](https://github.com/whythawk/whyqd) libraries
 
-We were able to proceed in all these directions through a collaboration across projects 14 (this project) and [27: Multi-Repository Data Submission using ISA-JSON](https://github.com/elixir-europe/biohackathon-projects-2023/tree/main/27). We deployed a custom GitLab installation on a cloud VM (https://gitlab.fairtracks.net/) and investigated unit testing pipelines as a means of integration. We successfully set up two paths of integration from Omnipy to a Minio service deployed on the Norwegian National Infrastructure for Research Data (NIRD) Kubernetes-based infrastructure, through the Python [Boto3 library](https://github.com/boto/boto3) and the [s3fs file system](https://github.com/s3fs-fuse/s3fs-fuse). We also started implementing extensions of Omnipy to allow output data to be persisted as S3 buckets. We successfully deployed a prototype installation of the Prefect server on NIRD using [customizations](https://github.com/fairtracks/prefect-helm/tree/nird_config) of the [Prefect Helm charts](https://github.com/PrefectHQ/prefect-helm). We investigated the complex configuration possibilities of the Prefect library to identify the most natural configuration to use for Omnipy integration. Lastly, we identified three different routes for integrating the Omnipy and whyqd libraries: 1) integration of the individual whyqd actions as Omnipy tasks, 2) wrapping of the complete whyqd library to allow crosswalk invocations to be orchestrated through Omnipy/Prefect, and 3) integrate Omnipy into the whyqd web service to deploy particular resource-demanding data flows on dedicated compute resources. It was decided to move forward with at least option 1 and 2.
+We were able to proceed in all these directions through a collaboration across projects 14 (this project) and [27: Multi-Repository Data Submission using ISA-JSON](https://github.com/elixir-europe/biohackathon-projects-2023/tree/main/27). We deployed a custom GitLab installation on a cloud VM (https://gitlab.fairtracks.net/) and investigated unit testing pipelines as a means of integration. We successfully set up two paths of integration from Omnipy to a Minio service deployed on the Norwegian National Infrastructure for Research Data (NIRD) Kubernetes-based infrastructure, through the Python [Boto3 library](https://github.com/boto/boto3) and the [s3fs file system](https://github.com/s3fs-fuse/s3fs-fuse). We also started implementing extensions of Omnipy to allow output data to be persisted as S3 buckets. We successfully deployed a prototype installation of the Prefect server on NIRD using [customizations](https://github.com/fairtracks/prefect-helm/tree/nird_config) of the [Prefect Helm charts](https://github.com/PrefectHQ/prefect-helm). We investigated the complex configuration possibilities of the Prefect library to identify the most natural configuration to use for Omnipy integration. Lastly, we identified three different routes for integrating the Omnipy and whyqd libraries: 
 
-Due to the limited opportunities we had to prepare to the BH2023, as well as several bugs and limitation discovered in Omnipy, we were unable to complete an end-to-end prototype of the full integration during the event. We have, however, tested out the individual integrations and will continue the implementation of an end-to-en prototype. This will be centered around ISA-JSON and allow a GitLab data repository to trigger brokering of data and metadata for submission to the European Nucleotide Archive (ENA) and Biosamples repositories. This implementation will be a proof-of-concept of making use of Omnipy to orchestrate transformation and brokering of large datasets deployed on cloud infrastructure, and is as such relevant for both project 14 and 27 at the same time. Since the conclusion of BH2023, the core functionality of Omnipy has also been considerably stabilized and improved with a range of new functionality that will be useful for completing the prototype, which is planned to be finished by the end of January 2024.
-
+1) integration of the individual whyqd actions as Omnipy tasks, 
+2) wrapping of the complete whyqd library to allow crosswalk invocations to be orchestrated through Omnipy/Prefect, and 
+3) integrate Omnipy into the whyqd web service to deploy particular resource-demanding data flows on dedicated compute resources.
+ 
+It was decided to move forward with at least option 1 and 2. Due to the limited opportunities we had to prepare to the BHE2023, as well as several bugs and limitation discovered in Omnipy, we were unable to complete an end-to-end prototype of the full integration during the event. We have, however, tested out the individual integrations and will continue the implementation of an end-to-end prototype. This will be centered around ISA-JSON and allow a GitLab data repository to trigger brokering of data and metadata for submission to the European Nucleotide Archive (ENA) and Biosamples repositories. This implementation will be a proof-of-concept of making use of Omnipy to orchestrate transformation and brokering of large datasets deployed on cloud infrastructure, and is as such relevant for both project 14 and 27 at the same time. Since the conclusion of BHE2023, the core functionality of Omnipy has also been considerably stabilized and improved with a range of new functionality that will be useful for completing the prototype, which is planned to be finished by the end of January 2024.
 
 # Discussion
 
@@ -372,13 +376,13 @@ Through collaborative efforts, we articulated the need for the LabProcess type t
 
 In the context of a user seeking experimental data for comparative analysis, the challenge lies in identifying and comparing experiments with specific factors. While these factors may not be the primary focus of individual experiments, they serve as fixed parameters within the experimental processes. To facilitate research, users need easy access to seemingly "uninteresting" parameters within the specific context of different parts of the experimental setup. For instance, in an experiment involving distinct processes such as growth and measurement under heat stress, both with the parameter "temperature," users require structured and accessible markup within the schema labeling of the original experiment. Integrating the LabProcess object type into bioschemas is recommended for structured markup of the formal parameters associated with experiment steps.
 
-**Use Case 2: Findability for Fine-Grained Data Acquisition**
+**Use Case 2: Findability for Fine-grained Data Acquisition**
 
 Enhancing the discoverability of datasets for bioinformaticians analyzing data with specialized devices or instruments is crucial. Consider a bioinformatician developing an image analysis algorithm for plant growth based on drone images. The bioinformatician seeks datasets with specific resolutions or generated with a particular camera sensor, without a focus on the original experimental setup. LabProcess type aids in organizing and retrieving such data efficiently.
 
-**Use Case 3: Findability for Input-Based Dataset Search**
+**Use Case 3: Findability for Input-based Dataset Search**
 
-In a phenomic plant dataset containing direct measurements and calculated data, the LabProcess type enables documenting relationships between data files. Users can utilize search engines to identify reproducible datasets containing both raw and derived data. This approach allows search engines to refer to raw data used for extracting specific features. For example, a raw image dataset can be easily associated with a disease dataset, aiding in finding potential training datasets for challenges like the Global Wheat challenge.
+In a plant phenomic dataset that includes both direct measures and computed data elaborated to characterize the plant varieties, the LabProcess type will allow to document the relationship between datafiles. Hence, a user, through a search engine, would be able to identify reproducible datasets that include both raw and derived data. Also, a search engine would be able to point to raw data that have been used to extract specific traits. For instance, a raw images dataset from which a trait disease dataset has been derived could be easily found thanks to LabProcess, hence identifying potential training dataset for challenges such as the global wheat challenge.
 
 ## Foundation of Bioschemas working group
 
@@ -388,18 +392,23 @@ The next steps will see the formal founding of the working group 'LabProcess / L
 * Sebastian Beier (lead)
 * Timo Mühlhaus
 * Stuart Owen
-* Dominic Brilhaus
+* Dominik Brilhaus
 * Lukas Weil
 * Cyril Pommier
 * Gajendra Doniparthi
 * Daniel Arend
 * Manuel Feser
+* Jonathan Bauer
 
 ## Migrating RO-Crate Profiles for ISA to stable repository
 
-The existing RO-Crate Profiles are currently in Google Doc format, necessitating formalization and transfer to a stable repository, be it on GitHub or publication on Zenodo. Presently, the RO-Crate website features a Draft ISA Profile focused solely on the Investigation Level, along with an ARC Profile. From a pragmatic standpoint, consolidating these profiles into a comprehensive ISA RO-Crate profile, also applicable to ARC, is deemed beneficial.
+During the Biohackathon, the ISA RO-Crate Profiles were worked on through a collaborative Google Doc.
 
-The deliberation centers on where to store this profile—whether within https://github.com/nfdi4plants/arc-to-rocrate or, potentially more judiciously, creating a dedicated GitHub repository for isa-to-rocrate and publishing it there.
+Subsequently, the RO-Crate Profiles have been migrated to a Github repository at https://github.com/nfdi4plants/isa-ro-crate-profile. There is still some delibration around whether this will be it's final home, but if moved through Github it will automatically redirect to the new location. 
+
+The Profiles are still in draft form and being updated, in particular whilst the Bioschemas LabProcess Type and Profile progresses. When this version is finalised, it will be given a persistent identifier, likely through the https://w3id.org/ service.
+
+Presently, the RO-Crate website features an earlier Draft ISA Profile focused solely on the Investigation Level, along with an ARC Profile. This will eventually be updated to provide a short overview and point to the full ISA RO-Crate Profiles.
 
 
 ## Upcoming Project at BioHackathon Germany
@@ -408,6 +417,6 @@ Numerous topics addressed in this BioHackathon project are slated for finalizati
 
 ## Acknowledgements
 
-This work was funded by ELIXIR, the research infrastructure for life-science data; by the Federal Government of Germany and the county of North Rhine-Westphalia (de.NBI - the German Network for Bioinformatics Infrastructure); the DFG in frame of the FAIRagro, NFDI4BioDiversity and DataPLANT consortia of the NFDI; and by the Norwegian Research Council. Discussions and work were conducted during the BioHackathon Europe 2023 in Barcelona, Spain. We also thank the following attendees (both remote and onsite) for fruitful discussions: Philippe Rocca-Serra, Stian Soiland-Reyes, Nick Juty, Ginger Tsueng, Leyla Jael-Castro, Alban Gaignard, and Ivan Mičetić.
+This work was funded by ELIXIR, the research infrastructure for life-science data; by the Federal Government of Germany and the county of North Rhine-Westphalia (de.NBI - the German Network for Bioinformatics Infrastructure); and the DFG in frame of the FAIRagro (www.fairagro.net, project number 501899475), NFDI4BioDiversity (www.nfdi4biodiversity.org, project number 442032008) and DataPLANT (https://www.nfdi4plants.de/, project number 442077441) consortia of the NFDI; and by the Norwegian Research Council. Discussions and work were conducted during the BioHackathon Europe 2023 in Barcelona, Spain. We also thank the following attendees (both remote and onsite) for fruitful discussions: Philippe Rocca-Serra, Stian Soiland-Reyes, Nick Juty, Ginger Tsueng, Leyla Jael-Castro, Alban Gaignard, and Ivan Mičetić.
 
 ## References
