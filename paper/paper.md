@@ -117,6 +117,7 @@ In preparation for the BioHackathon, the team from Kaiserslautern had already im
 All these changes from the original work plan allowed to define additional work to create a crosswalk from ISA to [GEO](https://www.ncbi.nlm.nih.gov/geo/) using [whyqd](https://whyqd.com/). During the BioHackathon it also became clear that the mappings between ISA and MIAPPE need to be refined to fully utilise the conversion from MIAPPE-compliant ISA to RO-Crates.
 
 **Updated Work Plan**
+
 1. Generate Bioschemas representation of the ISA model
 2. Specify formal RO-Crate Profile for ISA
 3. Generate Crosswalk from ISA to GEO using whyqd
